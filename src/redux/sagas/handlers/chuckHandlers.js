@@ -37,11 +37,16 @@ function* handleGetFromQuery({payload}){
     try{
         const chucks = yield call(getFromQuery, payload);
         const {data} = chucks;
-        const{total} = data;
-        let index = random(0, total - 1);
-        const chuck = data.result[index];
-        yield put(setChuck(chuck));
+        const {total} = data;
+        if(total !== 0) {
+            let index = random(0, total - 1);
+            const chuck = data.result[index];
+            yield put(setChuck(chuck));
+        } else
+            yield put(setError("No chuck joke for search text: " + payload));
     }catch (error){
+        console.log("chyba")
+        console.log(error);
         yield put(setError(error));
     }
 }
