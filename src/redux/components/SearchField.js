@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import clsx from 'clsx';
 import {
     Button,
     FormControl, FormHelperText,
@@ -9,7 +10,6 @@ import {
     TextField,
     Tooltip
 } from "@material-ui/core";
-import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles(theme => ({
@@ -19,12 +19,18 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(5),
     },
 
-    searchInput: {
+    searchStyle: {
         '& .MuiInput-underline:after': {
             borderBottomColor: theme.palette.secondary.main,
         },
         '& .MuiInputBase-input': {
             color: "#FFF",
+        }
+    },
+
+    searchInput: {
+        '& .MuiFormHelperText-root':{
+            color: theme.palette.secondary.main,
         },
         marginRight: theme.spacing(2),
         marginLeft: theme.spacing(2),
@@ -33,12 +39,6 @@ const useStyles = makeStyles(theme => ({
 
     selectSearch: {
         width: "30%",
-        '& .MuiInput-underline:after': {
-            borderBottomColor: theme.palette.secondary.main,
-        },
-        '& .MuiInputBase-input': {
-            color: "#FFF",
-        }
     },
 
     selectHelper: {
@@ -54,9 +54,20 @@ function SearchField(props){
     const [searchText, setSearchText] = useState("");
     const [searchSelect, setSearchSelect] = useState(0);
     const [searchCategory, setSearchCategory] = useState("");
+    const [error, setError] = useState(false);
 
-    const handleSearchField = event => {
-        setSearchText(event.target.value);
+    const handleSearchFields = event => {
+        const {value, name} = event.target;
+        setError(false);
+
+        if(name === "selectSearch"){
+            setSearchSelect(value);
+        } else if (name === "searchText"){
+            setSearchText(value);
+        } else if (name === "selectCategory"){
+            setSearchCategory(value);
+        }
+
     }
 
     const handleCleanButton = () => {
@@ -64,25 +75,27 @@ function SearchField(props){
     };
 
     const handleButtonSearch = () => {
-        props.handleSearch(searchText);
-    }
+        if (searchSelect === 0) {
+            if (searchText === "")
+                setError(true);
+            else
+                props.handleTextSearch(searchText);
+        }
+        else if(searchSelect === 1)
+            if(searchCategory === "")
+                setError(true);
+            else
+                props.handleCategorySearch(props.categories[searchCategory]);
 
-    const handleSelectSearch = (event) => {
-        setSearchSelect(event.target.value);
-        console.log(event.target);
-    }
-
-    const handleSearchCategory = event => {
-        setSearchCategory(event.target.value);
-        console.log(event.target);
     }
 
     return (
         <div className={classes.searchDiv}>
-            <FormControl className={classes.selectSearch}>
+            <FormControl className={clsx(classes.searchStyle, classes.selectSearch)}>
                 <Select
+                    name="selectSearch"
                     value={searchSelect}
-                    onChange={handleSelectSearch}
+                    onChange={handleSearchFields}
                 >
                     {
                         SEARCH_SELECT_ARRAY.map((item, index) => (
@@ -93,16 +106,17 @@ function SearchField(props){
                     }
                 </Select>
             </FormControl>
-
             {
                 searchSelect === 0 ?
                     <TextField
-                        className={classes.searchInput}
+                        className={clsx(classes.searchStyle, classes.searchInput)}
+                        error={error}
+                        helperText={error && "Required"}
                         fullWidth
                         label=""
                         name="searchText"
                         value={searchText}
-                        onChange={handleSearchField}
+                        onChange={handleSearchFields}
                         placeholder="Text search..."
                         InputProps={{
                             endAdornment: (
@@ -115,11 +129,13 @@ function SearchField(props){
                         }}
                     />
                     :
-                    <FormControl className={classes.searchInput}>
+                    <FormControl className={clsx(classes.searchStyle, classes.searchInput)}>
                         <Select
                             value={searchCategory}
-                            onChange={handleSearchCategory}
+                            onChange={handleSearchFields}
                             displayEmpty
+                            name="selectCategory"
+                            error={error}
                         >
                             <MenuItem value="" disabled>
                                 Category search...
@@ -132,6 +148,7 @@ function SearchField(props){
                                 ))
                             }
                         </Select>
+                        <FormHelperText>{error && "Required"}</FormHelperText>
                     </FormControl>
             }
             <Button variant="contained" color="secondary" onClick={handleButtonSearch}>

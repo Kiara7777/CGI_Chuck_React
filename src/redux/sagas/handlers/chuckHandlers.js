@@ -1,41 +1,33 @@
 import {call, put} from "redux-saga/effects";
-import {getCategories, getFromCategory, getFromQuery, getRandomChuck} from "../requests/chuckRquests";
+import {getData} from "../requests/chuckRquests";
 import {setCategories, setChuck, setError} from "../../actions";
 import {random} from "../../../helpFunctions";
 
-function* handleGetRandomChuck(){
-    try {
-        const chuck = yield call(getRandomChuck);
-        const {data} = chuck;
-        yield put(setChuck(data));
-    } catch (error){
-        yield put(setError(error));
-    }
+const getErrorData = errorApi => {
+    const {data} = errorApi.response;
+    const {error, message, status} = data;
+    return `${status}: ${error}: ${message}`;
 }
 
-function* handleGetCategories(){
-    try {
-        const categories = yield call(getCategories);
-        const {data} = categories;
-        yield put(setCategories(data));
-    }catch (error) {
-        yield put(setError(error));
-    }
-}
-
-function* handleGetFromCategory({payload}){
+function* handleSimpleRequest(action){
+    const {apiCall} = action;
     try{
-        const chuck = yield call(getFromCategory, payload);
-        const {data} = chuck;
-        yield put(setChuck(data));
+        const response = yield call(getData, apiCall);
+        const {data} = response;
+        if(action.hasOwnProperty('isCategory')){
+            yield put(setCategories(data));
+        } else {
+            yield put(setChuck(data));
+        }
     } catch (error){
-        yield put(setError(error));
+        yield put(setError(getErrorData(error)));
     }
 }
 
-function* handleGetFromQuery({payload}){
+function* handleGetFromQuery(action){
+    const{apiCall, payload} = action;
     try{
-        const chucks = yield call(getFromQuery, payload);
+        const chucks = yield call(getData, apiCall + payload);
         const {data} = chucks;
         const {total} = data;
         if(total !== 0) {
@@ -45,10 +37,8 @@ function* handleGetFromQuery({payload}){
         } else
             yield put(setError("No chuck joke for search text: " + payload));
     }catch (error){
-        console.log("chyba")
-        console.log(error);
-        yield put(setError(error));
+        yield put(setError(getErrorData(error)));
     }
 }
 
-export {handleGetRandomChuck, handleGetCategories, handleGetFromCategory, handleGetFromQuery};
+export {handleGetFromQuery, handleSimpleRequest};

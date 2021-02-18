@@ -14,7 +14,6 @@ const chuckReducer = (state = initialState, action) => {
             if(categories.length > 0)
                 category = categories[0];
             category += "";
-            console.log(value, category);
             return {...state, value, category};
         default:
             return state;

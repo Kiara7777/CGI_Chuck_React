@@ -1,22 +1,17 @@
 import {all, takeLatest} from "redux-saga/effects";
 import {GET_CATEGORIES, GET_CATEGORY_CHUCK, GET_QUERY_CHUCK, GET_RANDOM_CHUCK} from "../../constants";
-import {
-    handleGetCategories,
-    handleGetFromCategory,
-    handleGetFromQuery,
-    handleGetRandomChuck
-} from "./handlers/chuckHandlers";
+import {handleGetFromQuery, handleSimpleRequest,} from "./handlers/chuckHandlers";
 
 function* watcherGetRandom(){
-    yield takeLatest(GET_RANDOM_CHUCK, handleGetRandomChuck);
+    yield takeLatest(GET_RANDOM_CHUCK, handleSimpleRequest);
 }
 
 function* watcherGetCategories(){
-    yield takeLatest(GET_CATEGORIES, handleGetCategories);
+    yield takeLatest(GET_CATEGORIES, handleSimpleRequest);
 }
 
 function* watcherGetFromCategory(){
-    yield takeLatest(GET_CATEGORY_CHUCK, handleGetFromCategory);
+    yield takeLatest(GET_CATEGORY_CHUCK, handleSimpleRequest);
 }
 
 function* watcherGetFromQuery(){
