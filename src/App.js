@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {clearError, getCategories, getFromCategory, getFromQuerry, getRandomChuck} from "./redux/actions";
-import SearchField from "./redux/components/SearchField";
-import {Container, Paper} from "@material-ui/core";
-import JokeArea from "./redux/components/JokeArea";
+import SearchField from "./components/SearchField";
+import {Container} from "@material-ui/core";
+import JokeArea from "./components/JokeArea";
+import LogoTitle from "./components/LogoTitle";
 
 
 
@@ -34,15 +35,17 @@ function App() {
   return (
       <React.Fragment>
           <Container maxWidth="md">
-                <SearchField handleTextSearch={handleSearchByText}
-                             categories={categories}
-                             handleCategorySearch={handleSearchByCategory}
-                />
-                {error ?
-                    <JokeArea title={"Error message from server "} chuck={error}/>
-                    :
-                    <JokeArea title={`Chuck joke from category: ${chuck.category}`} chuck={chuck.value} />
-                }
+              <LogoTitle image="images/chucknorris_logo.png" title="Chuck's jokes"/>
+
+            <SearchField handleTextSearch={handleSearchByText}
+                         categories={categories}
+                         handleCategorySearch={handleSearchByCategory}
+            />
+            {error ?
+                <JokeArea title={"Error message from server "} chuck={error}/>
+                :
+                <JokeArea title={`Chuck joke from category: ${chuck.category}`} chuck={chuck.value} />
+            }
           </Container>
       </React.Fragment>
   );
