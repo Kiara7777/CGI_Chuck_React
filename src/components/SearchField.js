@@ -95,6 +95,9 @@ function SearchField(props){
                     name="selectSearch"
                     value={searchSelect}
                     onChange={handleSearchFields}
+                    inputProps={{
+                        'data-testid': 'selectSearchField',
+                    }}
                 >
                     {
                         SEARCH_SELECT_ARRAY.map((item, index) => (
@@ -118,6 +121,7 @@ function SearchField(props){
                         onChange={handleSearchFields}
                         placeholder="Text search..."
                         InputProps={{
+                            'data-testid': 'searchTextField',
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton onClick={handleCleanButton} disabled={!searchText} color="secondary">
@@ -135,6 +139,9 @@ function SearchField(props){
                             displayEmpty
                             name="selectCategory"
                             error={error}
+                            inputProps={{
+                                'data-testid': 'selectCategoryField',
+                            }}
                         >
                             <MenuItem value="" disabled>
                                 Category search...

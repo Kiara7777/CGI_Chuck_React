@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core";
+import {makeStyles, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     mainDiv: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
         display: "flex",
         color: theme.palette.secondary.main,
+        marginTop: theme.spacing(2)
     },
 
     divHelper: {
@@ -43,9 +44,9 @@ function LogoTitle(props){
     return(
         <div className={classes.mainDiv}>
             <div className={classes.divHelper}>
-                <img src={props.image} alt="Chuck logo" width='25%' height='25%'/>
+                <img src={props.image} alt={props.alt} width={props.width} height={props.height}/>
             </div>
-            <h1 className={classes.titleMain}>{props.title}</h1>
+            <Typography variant="h5" className={classes.titleMain}>{props.title}</Typography>
         </div>
     );
 }

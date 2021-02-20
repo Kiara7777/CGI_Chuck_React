@@ -35,7 +35,11 @@ function App() {
   return (
       <React.Fragment>
           <Container maxWidth="md">
-              <LogoTitle image="images/chucknorris_logo.png" title="Chuck's jokes"/>
+              <LogoTitle image="images/chucknorris_logo.png"
+                         alt="Chuck logo"
+                         width="25%"
+                         height="25%"
+                         title="Chuck's jokes"/>
 
             <SearchField handleTextSearch={handleSearchByText}
                          categories={categories}
