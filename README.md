@@ -25,7 +25,7 @@ Získat ze [API serveru](https://api.chucknorris.io/) požadovaná data (vtipy C
 - Redux, Redux-Saga, axios, MaterialUI
 - K testování: React testing library, Jest, Redux saga test plan
 
-## Pevzane zdroje
+## Převzaté zdroje
 Obrázky z public/images jsou převzaty z [API serveru](https://api.chucknorris.io/)
 
 # Getting Started with Create React App
