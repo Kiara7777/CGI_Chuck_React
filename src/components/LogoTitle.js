@@ -1,6 +1,5 @@
 import React from "react";
 import {Link, makeStyles, Typography} from "@material-ui/core";
-import {API} from "../constants";
 
 const useStyles = makeStyles(theme => ({
     mainDiv: {
@@ -38,13 +37,22 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-
-
+/**
+ * Komponenta pro zobrazeni loga a horniho titulku. Po kliknuti na obrazek je uzivatel prenesen na pozadovanou adresu
+ * props: {
+ *      link: adresa na odkaz loga
+ *      image: zdroj obrazku/loga
+ *      alt: alternativni nazev pro logo
+ *      width: sirka loga
+ *      height: vyska loga
+ *      title: titulek k zobrazeni
+ * }
+ * */
 function LogoTitle(props){
     const classes = useStyles();
     return(
         <div className={classes.mainDiv}>
-            <Link href={API.MAIN} className={classes.linkHelper}>
+            <Link href={props.link} className={classes.linkHelper}>
                 <img src={props.image} alt={props.alt} width={props.width} height={props.height}/>
             </Link>
             <Typography variant="h5" className={classes.titleMain}>{props.title}</Typography>

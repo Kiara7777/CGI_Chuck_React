@@ -5,8 +5,11 @@ import SearchField from "./components/SearchField";
 import {Container} from "@material-ui/core";
 import JokeArea from "./components/JokeArea";
 import LogoTitle from "./components/LogoTitle";
+import {API} from "./constants";
 
-
+/**
+ * Hlavni rodicovska komponenta. Ma nastarost data.
+ * */
 
 function App() {
 
@@ -40,7 +43,9 @@ function App() {
                          alt="Chuck logo"
                          width="25%"
                          height="25%"
-                         title="Chuck's jokes"/>
+                         title="Chuck's jokes"
+                         link={API.MAIN}
+              />
 
             <SearchField handleTextSearch={handleSearchByText}
                          categories={categories}

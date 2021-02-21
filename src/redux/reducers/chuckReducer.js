@@ -5,6 +5,11 @@ const initialState = {
     category: undefined
 }
 
+/**
+ * Reducer z REDUX, ma na starosti update vtipu, ziskana data jsou v payload objektu
+ * kategorie se prenasi jako jednoprvkove pole, pokud vtip nema kategorii, tak se kategorie nastavi
+ * jako string "undefined"
+ * */
 const chuckReducer = (state = initialState, action) => {
     switch (action.type){
         case SET_CHUCK:

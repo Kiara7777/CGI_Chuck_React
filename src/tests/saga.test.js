@@ -1,13 +1,17 @@
 import {expectSaga} from "redux-saga-test-plan";
-import {watcherGetCategories, watcherGetRandom} from "../redux/sagas";
-import {call} from "redux-saga-test-plan/matchers";
-import {GET_CATEGORIES, GET_RANDOM_CHUCK} from "../constants";
+import {watcherGetRandom} from "../redux/sagas";
+import {GET_RANDOM_CHUCK} from "../constants";
 import {throwError} from "redux-saga-test-plan/providers";
 import {clearError, setCategories, setChuck, setError, setLoading} from "../redux/actions";
 import {handleSimpleRequest} from "../redux/sagas/handlers/chuckHandlers";
 import * as matchers from 'redux-saga-test-plan/matchers';
-import axios from "axios";
 import {getData} from "../redux/sagas/requests/chuckRquests";
+
+/**
+ * Testy pro redux-saga
+ * - ziskani pozadovanych dat a vyvolani pozadovanych akci(side-effects)
+ * - vyvolani chyby a nastaveni chyboveho hlaseni
+ * */
 
 const fakeResponse = {
     data: {

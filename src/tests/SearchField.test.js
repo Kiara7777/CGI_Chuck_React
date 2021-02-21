@@ -3,6 +3,19 @@ import React from "react";
 import SearchField from "../components/SearchField";
 import userEvent from '@testing-library/user-event'
 
+/**
+ * Testy pro komponentu SearchField
+ * - test vyrenderovani prvku - select, textField, button
+ * - test vyrenderovani prvku a prepnuti na - select, select, button
+ *
+ * - test pro TextField - pokus o odeslani prazdne hodnoty - vyrenderovani Required popisu
+ * - test pro TextField - pokus o odeslani hodnoty - zadny Required, callBack fuknce byla zavolana s zadanou hodnotou
+ *
+ * - test pro Select(vybrani kategorie) - pokus o odeslani s nevybranou kategorii - vyrenderovani Required popisu
+ * - test pro Select(vybrani kategorie) - pokus o odeslani s vybranou kategorii - zadny Required, callBack fuknce
+ *      byla zavolana s zadanou hodnotou
+ * */
+
 
 const textSearch = jest.fn();
 const categorySearch = jest.fn();
@@ -19,6 +32,9 @@ beforeEach(() => {
     render(<SearchField {...props}/>);
 })
 
+/**
+ * Vyrenderovani
+ * */
 describe("Test SearchFiled render", () => {
     it("should select input button", () => {
         expect(screen.queryByTestId("selectSearchField")).toBeInTheDocument();
@@ -40,6 +56,9 @@ describe("Test SearchFiled render", () => {
     })
 })
 
+/**
+ * TextField
+ * */
 describe("Test input TextField  serachText", () => {
     it("empty field, should render required label", () => {
 
@@ -63,6 +82,9 @@ describe("Test input TextField  serachText", () => {
     })
 })
 
+/**
+ * Select
+ * */
 describe("Test select field, selcetCategory", () => {
     it("not selected, should render required label", () => {
 

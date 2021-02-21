@@ -44,8 +44,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
 const SEARCH_SELECT_ARRAY = ["Search by text", "Search by category"];
 
+/**
+ * Komponenta pro zadani textu pro vyhledavani (textove vzhledavani vtipu) nebo vyhledavani
+ * dle zvolene kategorie. Prepinani mezi jednotlivymi mody se provadi pomoci selectu.
+ * Pokud neni zadan text nebo neni vybrana kategorie, tak se vypise Required upozorneni
+ * props: {
+ *      categories: seznam kategorii
+ *      handleTextSearch: callback do rodice, obluhuje vyhledavani dle textu, vola se po stiskniti tlacitka
+ *      handleCategorySearch: callback do rodice, obluhuje vyhledavani dle categorie vola se po stiskniti tlacitka
+ * */
 function SearchField(props){
     const classes = useStyles();
 
@@ -54,6 +64,9 @@ function SearchField(props){
     const [searchCategory, setSearchCategory] = useState("");
     const [error, setError] = useState(false);
 
+    /**
+     * callback funkce pro update stavu pozadovaneho picka
+     * */
     const handleSearchFields = event => {
         const {value, name} = event.target;
         setError(false);
@@ -68,10 +81,17 @@ function SearchField(props){
 
     }
 
+    /**
+     * callback pro vycisteni TextField policka, ten krizek
+     * */
     const handleCleanButton = () => {
         setSearchText("");
     };
 
+    /**
+     * callback pro search button, vyvolava callback rodice
+     * pokud se nezadalo text ci nevzbrala kategorie nastavi chybu
+     * */
     const handleButtonSearch = () => {
         if (searchSelect === 0) {
             if (searchText === "")

@@ -18,6 +18,15 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+/**
+ * Komponenta pro zobrazeni vtipu/poozadovaneho textu.
+ * Pokud se data nenactou ze serveru, tak se zobrazuje indikator nacitani - props.loading
+ * props: {
+ *     title: nadpis,
+ *     chuck: text na zobrazeni
+ *     loading: indikace zda se data nacitaji ze serveru
+ * }
+ * */
 function JokeArea(props) {
     const classes = useStyles();
     return(

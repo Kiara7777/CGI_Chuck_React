@@ -9,6 +9,15 @@ import {rootWatcher} from "./redux/sagas";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import {grey, orange} from "@material-ui/core/colors";
 
+/**
+ * Namapovani reactu
+ * nastaveni REDUX store a REDUX-SAGA middleWare
+ * nastaveni theme pro MaterialUI
+ *
+ * Znamy problem: cele jeste bylo obalene v  <React.StrictMode>, zda se ale, ze to zpusobovalo
+ * warning v konzoli z duvodu createMuiTheme. Problem by mel byt vyreseny ve V5 MaterialUI, ktera je v alpha fazi
+ * vice tady: https://github.com/mui-org/material-ui/issues/13394
+ * */
 ////////////REDUX//////////////
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
