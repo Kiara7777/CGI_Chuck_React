@@ -41,8 +41,8 @@ function App() {
           <Container maxWidth="md">
               <LogoTitle image="images/chucknorris_logo.png"
                          alt="Chuck logo"
-                         width="25%"
-                         height="25%"
+                         width="40%"
+                         height="40%"
                          title="Chuck's jokes"
                          link={API.MAIN}
               />

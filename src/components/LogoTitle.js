@@ -29,11 +29,9 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2)
     },
 
-    linkHelper: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center ",
-    },
+    fixLink:{
+        textAlign: "center",
+    }
 
 }));
 
@@ -52,9 +50,11 @@ function LogoTitle(props){
     const classes = useStyles();
     return(
         <div className={classes.mainDiv}>
-            <Link href={props.link} className={classes.linkHelper}>
-                <img src={props.image} alt={props.alt} width={props.width} height={props.height}/>
-            </Link>
+            <div className={classes.fixLink}>
+                <Link href={props.link}>
+                    <img src={props.image} alt={props.alt} width={props.width} height={props.height}/>
+                </Link>
+            </div>
             <Typography variant="h5" className={classes.titleMain}>{props.title}</Typography>
         </div>
     );
