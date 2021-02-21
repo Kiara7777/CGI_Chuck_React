@@ -2,7 +2,7 @@ import {
     GET_CATEGORY_CHUCK,
     GET_RANDOM_CHUCK,
     GET_QUERY_CHUCK,
-    SET_CHUCK, GET_CATEGORIES, SET_CATEGORIES, SET_ERROR, CLEAR_ERROR, API
+    SET_CHUCK, GET_CATEGORIES, SET_CATEGORIES, SET_ERROR, CLEAR_ERROR, API, SET_LOADING
 } from "../../constants";
 /**
  * Action pro ziskani random vtipu
@@ -51,4 +51,9 @@ const getFromQuerry = (payload) => ({
     payload
 });
 
-export {getRandomChuck, setChuck, getCategories, setCategories, setError, getFromCategory, getFromQuerry, clearError};
+const setLoading = (payload) => ({
+   type: SET_LOADING,
+   payload
+});
+
+export {getRandomChuck, setChuck, getCategories, setCategories, setError, getFromCategory, getFromQuerry, clearError, setLoading};

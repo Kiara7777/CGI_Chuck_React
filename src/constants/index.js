@@ -6,7 +6,8 @@ const API = {
     RANDOM: "https://api.chucknorris.io/jokes/random",
     CATEGORIES: "https://api.chucknorris.io/jokes/categories",
     FROM_CATEGORY: "https://api.chucknorris.io/jokes/random?category=",
-    WITH_QUERY: "https://api.chucknorris.io/jokes/search?query="
+    WITH_QUERY: "https://api.chucknorris.io/jokes/search?query=",
+    MAIN: "https://api.chucknorris.io/"
 };
 
 const GET_RANDOM_CHUCK = "GET_RANDOM_CHUCK";
@@ -19,6 +20,7 @@ const SET_CATEGORIES = "SET_CATEGORIES";
 
 const SET_ERROR = "SET_ERROR";
 const CLEAR_ERROR = "CLEAR_ERROR";
+const SET_LOADING = "SET_LOADING";
 
 export {GET_RANDOM_CHUCK, GET_QUERY_CHUCK, GET_CATEGORY_CHUCK, SET_CHUCK, API, GET_CATEGORIES, SET_CATEGORIES, SET_ERROR,
-    CLEAR_ERROR};
+    CLEAR_ERROR, SET_LOADING};

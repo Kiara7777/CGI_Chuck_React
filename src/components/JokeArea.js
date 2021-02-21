@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles, Paper, Typography} from "@material-ui/core";
+import {CircularProgress, makeStyles, Paper, Typography} from "@material-ui/core";
 import {fade} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -7,8 +7,15 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2),
         backgroundColor: fade(theme.palette.secondary.main, 0.7),
         color: "#FFF",
-    }
+    },
 
+    progreessDiv: {
+        display: "flex"
+    },
+
+    progress: {
+        marginLeft: "auto"
+    }
 }));
 
 function JokeArea(props) {
@@ -21,6 +28,12 @@ function JokeArea(props) {
             <Typography variant="body1">
                 {props.chuck}
             </Typography>
+
+            {props.loading &&
+                <div className={classes.progreessDiv}>
+                    <CircularProgress className={classes.progress}/>
+                </div>
+            }
         </Paper>
     );
 }

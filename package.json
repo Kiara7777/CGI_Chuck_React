@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "react-test-renderer": "^17.0.1"
+    "react-test-renderer": "^17.0.1",
+    "redux-saga-test-plan": "^4.0.1"
   }
 }

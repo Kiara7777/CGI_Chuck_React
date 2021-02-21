@@ -1,7 +1,9 @@
-import {call, put} from "redux-saga/effects";
-import {getData} from "../requests/chuckRquests";
-import {setCategories, setChuck, setError} from "../../actions";
+import {all, call, put, cancelled} from "redux-saga/effects";
+import {getData, getDataTest} from "../requests/chuckRquests";
+import {clearError, setCategories, setChuck, setError, setLoading} from "../../actions";
 import {random} from "../../../helpFunctions";
+import axios from "axios";
+
 
 const getErrorData = errorApi => {
     const {data} = errorApi.response;
@@ -11,33 +13,64 @@ const getErrorData = errorApi => {
 
 function* handleSimpleRequest(action){
     const {apiCall} = action;
+    const axiosCancelSource = axios.CancelToken.source();
     try{
-        const response = yield call(getData, apiCall);
+        const response = yield call(getData, apiCall, axiosCancelSource.token);
         const {data} = response;
+        let dispatchAction;
         if(action.hasOwnProperty('isCategory')){
-            yield put(setCategories(data));
+            dispatchAction = setCategories;
         } else {
-            yield put(setChuck(data));
+            dispatchAction = setChuck
         }
+        yield all([
+            put(dispatchAction(data)),
+            put(setLoading(false)),
+            put(clearError())
+        ]);
     } catch (error){
-        yield put(setError(getErrorData(error)));
+        yield all([
+            put(setError(getErrorData(error))),
+            put(setLoading(false)),
+        ]);
+    } finally {
+        if(yield cancelled()){
+            axiosCancelSource.cancel();
+        }
     }
 }
 
 function* handleGetFromQuery(action){
     const{apiCall, payload} = action;
+    const axiosCancelSource = axios.CancelToken.source();
     try{
-        const chucks = yield call(getData, apiCall + payload);
+        const chucks = yield call(getData, apiCall + payload, axiosCancelSource.token);
         const {data} = chucks;
         const {total} = data;
         if(total !== 0) {
             let index = random(0, total - 1);
             const chuck = data.result[index];
-            yield put(setChuck(chuck));
-        } else
-            yield put(setError("No chuck joke for search text: " + payload));
+            yield all([
+                put(setChuck(chuck)),
+                put(setLoading(false)),
+                put(clearError())
+            ]);
+        } else {
+            yield all([
+                yield put(setError("No chuck joke for search text: " + payload)),
+                put(setLoading(false)),
+            ]);
+        }
+
     }catch (error){
-        yield put(setError(getErrorData(error)));
+        yield all([
+            put(setError(getErrorData(error))),
+            put(setLoading(false)),
+        ]);
+    } finally {
+        if(yield cancelled()){
+            axiosCancelSource.cancel();
+        }
     }
 }
 

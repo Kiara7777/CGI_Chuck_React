@@ -1,5 +1,6 @@
 import React from "react";
-import {makeStyles, Typography} from "@material-ui/core";
+import {Link, makeStyles, Typography} from "@material-ui/core";
+import {API} from "../constants";
 
 const useStyles = makeStyles(theme => ({
     mainDiv: {
@@ -29,23 +30,23 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2)
     },
 
-    divHelper: {
+    linkHelper: {
         display: "flex",
         justifyContent: "center",
         alignItems: "center ",
-    }
-
+    },
 
 }));
+
 
 
 function LogoTitle(props){
     const classes = useStyles();
     return(
         <div className={classes.mainDiv}>
-            <div className={classes.divHelper}>
+            <Link href={API.MAIN} className={classes.linkHelper}>
                 <img src={props.image} alt={props.alt} width={props.width} height={props.height}/>
-            </div>
+            </Link>
             <Typography variant="h5" className={classes.titleMain}>{props.title}</Typography>
         </div>
     );

@@ -28,4 +28,4 @@ function* rootWatcher(){
 }
 
 
-export default rootWatcher;
+export {rootWatcher, watcherGetRandom, watcherGetCategories};

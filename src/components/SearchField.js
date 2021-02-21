@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(2),
         width: "70%",
     },
-
     selectSearch: {
         width: "30%",
     },
